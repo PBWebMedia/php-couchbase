@@ -396,7 +396,7 @@ PHP_METHOD(ViewOptions, range)
             RETURN_NULL();
         }
         smart_str_0(&buf);
-        add_assoc_str_ex(data, ZEND_STRL("starkey"), buf.s TSRMLS_CC);
+        add_assoc_str_ex(data, ZEND_STRL("startkey"), buf.s TSRMLS_CC);
     }
     if (end != NULL) {
         smart_str buf = {0};
@@ -431,9 +431,9 @@ PHP_METHOD(ViewOptions, idRange)
         Z_DELREF_P(data);
     }
     add_assoc_string_ex(data, ZEND_STRL("inclusive_end"), inclusive_end ? "true" : "false");
-    add_assoc_str_ex(data, ZEND_STRL("starkey_docid"), start TSRMLS_CC);
+    add_assoc_str_ex(data, ZEND_STRL("startkey_docid"), zend_string_copy(start) TSRMLS_CC);
     if (end != NULL) {
-        add_assoc_str_ex(data, ZEND_STRL("endkey_docid"), end TSRMLS_CC);
+        add_assoc_str_ex(data, ZEND_STRL("endkey_docid"), zend_string_copy(end) TSRMLS_CC);
     }
 
     RETURN_ZVAL(getThis(), 1, 0);
@@ -454,7 +454,7 @@ PHP_METHOD(ViewOptions, raw)
         zend_update_property(pcbc_view_options_ce, getThis(), ZEND_STRL("query"), data TSRMLS_CC);
         Z_DELREF_P(data);
     }
-    add_assoc_str_ex(data, ZSTR_VAL(key), ZSTR_LEN(key), value TSRMLS_CC);
+    add_assoc_str_ex(data, ZSTR_VAL(key), ZSTR_LEN(key), zend_string_copy(value) TSRMLS_CC);
 
     RETURN_ZVAL(getThis(), 1, 0);
 }
@@ -475,67 +475,68 @@ PHP_METHOD(ViewOptions, keys)
         Z_DELREF_P(data);
     }
     add_assoc_zval_ex(data, ZEND_STRL("keys"), arg);
+    Z_ADDREF_P(arg);
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_timeout, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_timeout, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_includeDocuments, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_includeDocuments, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, _IS_BOOL, 0)
 ZEND_ARG_TYPE_INFO(0, maxConcurrentDocuments, IS_LONG, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_key, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_key, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_INFO(0, arg)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_keys, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_keys, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_limit, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_limit, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_skip, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_skip, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_scanConsistency, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_scanConsistency, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_order, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_order, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_reduce, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_reduce, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_group, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_group, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_groupLevel, 0, 1, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_groupLevel, 0, 1, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_range, 0, 2, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_range, 0, 2, Couchbase\\ViewOptions, 0)
 ZEND_ARG_INFO(0, start)
 ZEND_ARG_TYPE_INFO(0, end, 0, 1)
 ZEND_ARG_TYPE_INFO(0, inclusiveEnd, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_idRange, 0, 2, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_idRange, 0, 2, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, start, IS_STRING, 0)
 ZEND_ARG_TYPE_INFO(0, end, IS_STRING, 1)
 ZEND_ARG_TYPE_INFO(0, inclusiveEnd, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_raw, 0, 2, \\Couchbase\\ViewOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ViewOptions_raw, 0, 2, Couchbase\\ViewOptions, 0)
 ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
 ZEND_ARG_INFO(0, value)
 ZEND_END_ARG_INFO()
@@ -567,7 +568,7 @@ PHP_METHOD(Bucket, viewQuery)
     zend_string *view_name;
     zval *options = NULL;
 
-    rv = zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "SS|O", &design_doc, &view_name, &options,
+    rv = zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "SS|O!", &design_doc, &view_name, &options,
                                pcbc_view_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();

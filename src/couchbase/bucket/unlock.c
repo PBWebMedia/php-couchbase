@@ -67,7 +67,7 @@ PHP_METHOD(UnlockOptions, timeout)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_UnlockOptions_timeout, 0, 1, \\Couchbase\\UnlockOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_UnlockOptions_timeout, 0, 1, Couchbase\\UnlockOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -85,7 +85,7 @@ PHP_METHOD(Collection, unlock)
     zend_string *id, *cas;
     zval *options = NULL;
 
-    int rv = zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "SS|O", &id, &cas, &options, pcbc_unlock_options_ce);
+    int rv = zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "SS|O!", &id, &cas, &options, pcbc_unlock_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }

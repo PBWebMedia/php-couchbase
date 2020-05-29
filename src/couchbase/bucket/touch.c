@@ -66,7 +66,7 @@ PHP_METHOD(TouchOptions, timeout)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_TouchOptions_timeout, 0, 1, \\Couchbase\\TouchOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_TouchOptions_timeout, 0, 1, Couchbase\\TouchOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -86,7 +86,7 @@ PHP_METHOD(Collection, touch)
     zval *options = NULL;
 
     int rv =
-        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "Sl|O", &id, &expiry, &options, pcbc_touch_options_ce);
+        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "Sl|O!", &id, &expiry, &options, pcbc_touch_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }

@@ -159,7 +159,7 @@ PHP_METHOD(UserManager, getUser)
     zend_string *username;
 
     int rv =
-        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O", &username, &options, pcbc_get_user_options_ce);
+        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O!", &username, &options, pcbc_get_user_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }
@@ -214,7 +214,7 @@ PHP_METHOD(UserManager, getAllUsers)
     size_t path_len = strlen(path);
     int need_to_free_path = 0;
 
-    int rv = zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "|O", &options, pcbc_get_all_users_options_ce);
+    int rv = zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "|O!", &options, pcbc_get_all_users_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }
@@ -246,7 +246,7 @@ PHP_METHOD(UserManager, upsertUser)
     zval *options = NULL;
     zval *user;
 
-    int rv = zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "O|O", &user, pcbc_user_ce, &options,
+    int rv = zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "O|O!", &user, pcbc_user_ce, &options,
                                          pcbc_upsert_user_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
@@ -350,7 +350,7 @@ PHP_METHOD(UserManager, dropUser)
     zend_string *username;
 
     int rv =
-        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O", &username, &options, pcbc_drop_user_options_ce);
+        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O!", &username, &options, pcbc_drop_user_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }
@@ -636,28 +636,29 @@ PHP_METHOD(UserManager, dropGroup)
     efree(path);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_UserManager_getUser, 0, 1, \\Couchbase\\UserAndMetadata, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_UserManager_getUser, 0, 1, Couchbase\\UserAndMetadata, 0)
 ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
-ZEND_ARG_OBJ_INFO(0, options, \\Couchbase\\GetUserOptions, 1)
+ZEND_ARG_OBJ_INFO(0, options, Couchbase\\GetUserOptions, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(ai_UserManager_getAllUsers, 0, 0, IS_ARRAY, 0)
-ZEND_ARG_OBJ_INFO(0, options, \\Couchbase\\GetAllUsersOptions, 1)
+ZEND_ARG_OBJ_INFO(0, options, Couchbase\\GetAllUsersOptions, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(ai_UserManager_upsertUser, 0, 0, 1)
-ZEND_ARG_OBJ_INFO(0, user, \\Couchbase\\User, 0)
+ZEND_ARG_OBJ_INFO(0, user, Couchbase\\User, 0)
+ZEND_ARG_OBJ_INFO(0, options, Couchbase\\UpsertUserOptions, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(ai_UserManager_dropUser, 0, 0, 1)
 ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
-ZEND_ARG_OBJ_INFO(0, options, \\Couchbase\\DropUserOptions, 1)
+ZEND_ARG_OBJ_INFO(0, options, Couchbase\\DropUserOptions, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(ai_UserManager_getRoles, 0, 0, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_UserManager_getGroup, 0, 0, \\Couchbase\\Group, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_UserManager_getGroup, 0, 0, Couchbase\\Group, 0)
 ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
@@ -665,7 +666,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(ai_UserManager_getAllGroups, 0, 0, IS_AR
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(ai_UserManager_upsertGroup, 0, 0, 1)
-ZEND_ARG_OBJ_INFO(0, group, \\Couchbase\\Group, 0)
+ZEND_ARG_OBJ_INFO(0, group, Couchbase\\Group, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(ai_UserManager_dropGroup, 0, 0, 1)
@@ -737,11 +738,11 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO(ai_Role_bucket, IS_STRING, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Role_setName, 0, 1, \\Couchbase\\Role, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Role_setName, 0, 1, Couchbase\\Role, 0)
 ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Role_setBucket, 0, 1, \\Couchbase\\Role, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Role_setBucket, 0, 1, Couchbase\\Role, 0)
 ZEND_ARG_TYPE_INFO(0, bucket, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
@@ -788,7 +789,7 @@ PHP_METHOD(RoleAndDescription, description)
     ZVAL_COPY(return_value, prop);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO(ai_RoleAndDescription_role, \\Couchbase\\Role, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO(ai_RoleAndDescription_role, Couchbase\\Role, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO(ai_RoleAndDescription_displayName, IS_STRING, 0)
@@ -864,7 +865,7 @@ PHP_METHOD(RoleAndOrigins, origins)
     ZVAL_COPY(return_value, prop);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO(ai_RoleAndOrigins_role, \\Couchbase\\Role, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO(ai_RoleAndOrigins_role, Couchbase\\Role, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO(ai_RoleAndOrigins_origins, IS_ARRAY, 0)
@@ -989,23 +990,23 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO(ai_User_roles, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setUsername, 0, 1, \\Couchbase\\User, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setUsername, 0, 1, Couchbase\\User, 0)
 ZEND_ARG_TYPE_INFO(0, username, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setPassword, 0, 1, \\Couchbase\\User, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setPassword, 0, 1, Couchbase\\User, 0)
 ZEND_ARG_TYPE_INFO(0, password, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setDisplayName, 0, 1, \\Couchbase\\User, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setDisplayName, 0, 1, Couchbase\\User, 0)
 ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setGroups, 0, 1, \\Couchbase\\User, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setGroups, 0, 1, Couchbase\\User, 0)
 ZEND_ARG_TYPE_INFO(0, groups, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setRoles, 0, 1, \\Couchbase\\User, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_User_setRoles, 0, 1, Couchbase\\User, 0)
 ZEND_ARG_TYPE_INFO(0, roles, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
@@ -1091,7 +1092,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO(ai_UserAndMetadata_effectiveRoles, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO(ai_UserAndMetadata_user, \\Couchbase\\User, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO(ai_UserAndMetadata_user, Couchbase\\User, 0)
 ZEND_END_ARG_INFO()
 
 // clang-format off
@@ -1194,15 +1195,15 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO(ai_Group_ldapGroupReference, IS_STRING, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Group_setName, 0, 1, \\Couchbase\\Group, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Group_setName, 0, 1, Couchbase\\Group, 0)
 ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Group_setDescription, 0, 1, \\Couchbase\\Group, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Group_setDescription, 0, 1, Couchbase\\Group, 0)
 ZEND_ARG_TYPE_INFO(0, description, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Group_setRoles, 0, 1, \\Couchbase\\Group, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_Group_setRoles, 0, 1, Couchbase\\Group, 0)
 ZEND_ARG_TYPE_INFO(0, roles, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
@@ -1230,7 +1231,7 @@ PHP_METHOD(GetUserOptions, domainName)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_GetUserOptions_domainName, 0, 1, \\Couchbase\\GetUserOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_GetUserOptions_domainName, 0, 1, Couchbase\\GetUserOptions, 0)
 ZEND_ARG_TYPE_INFO(0, domainName, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
@@ -1252,7 +1253,7 @@ PHP_METHOD(UpsertUserOptions, domainName)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_UpsertUserOptions_domainName, 0, 1, \\Couchbase\\UpsertUserOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_UpsertUserOptions_domainName, 0, 1, Couchbase\\UpsertUserOptions, 0)
 ZEND_ARG_TYPE_INFO(0, domainName, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
@@ -1274,7 +1275,7 @@ PHP_METHOD(DropUserOptions, domainName)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_DropUserOptions_domainName, 0, 1, \\Couchbase\\DropUserOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_DropUserOptions_domainName, 0, 1, Couchbase\\DropUserOptions, 0)
 ZEND_ARG_TYPE_INFO(0, domainName, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
@@ -1296,7 +1297,7 @@ PHP_METHOD(GetAllUsersOptions, domainName)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_GetAllUsersOptions_domainName, 0, 1, \\Couchbase\\GetAllUsersOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_GetAllUsersOptions_domainName, 0, 1, Couchbase\\GetAllUsersOptions, 0)
 ZEND_ARG_TYPE_INFO(0, domainName, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 

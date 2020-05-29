@@ -65,7 +65,7 @@ PHP_METHOD(ExistsOptions, timeout)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ExistsOptions_timeout, 0, 1, \\Couchbase\\ExistsOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_ExistsOptions_timeout, 0, 1, Couchbase\\ExistsOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -82,7 +82,7 @@ PHP_METHOD(Collection, exists)
     zval *options = NULL;
     lcb_STATUS err;
 
-    int rv = zend_parse_parameters_throw(ZEND_NUM_ARGS(), "S|O", &id, &options, pcbc_exists_options_ce);
+    int rv = zend_parse_parameters_throw(ZEND_NUM_ARGS(), "S|O!", &id, &options, pcbc_exists_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }

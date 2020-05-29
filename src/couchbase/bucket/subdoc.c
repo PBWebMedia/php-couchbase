@@ -208,11 +208,11 @@ PHP_METHOD(LookupInOptions, withExpiry)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_LookupInOptions_timeout, 0, 1, \\Couchbase\\LookupInOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_LookupInOptions_timeout, 0, 1, Couchbase\\LookupInOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_LookupInOptions_withExpiry, 0, 1, \\Couchbase\\LookupInOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_LookupInOptions_withExpiry, 0, 1, Couchbase\\LookupInOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
@@ -232,7 +232,7 @@ PHP_METHOD(Collection, lookupIn)
     int rv;
 
     rv =
-        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "Sh|O", &id, &spec, &options, pcbc_lookup_in_options_ce);
+        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "Sh|O!", &id, &spec, &options, pcbc_lookup_in_options_ce);
     if (rv == FAILURE) {
         return;
     }
@@ -378,23 +378,23 @@ PHP_METHOD(MutateInOptions, storeSemantics)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_cas, 0, 1, \\Couchbase\\MutateInOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_cas, 0, 1, Couchbase\\MutateInOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_timeout, 0, 1, \\Couchbase\\MutateInOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_timeout, 0, 1, Couchbase\\MutateInOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_expiry, 0, 1, \\Couchbase\\MutateInOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_expiry, 0, 1, Couchbase\\MutateInOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_durabilityLevel, 0, 1, \\Couchbase\\MutateInOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_durabilityLevel, 0, 1, Couchbase\\MutateInOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_storeSemantics, 0, 1, \\Couchbase\\MutateInOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_MutateInOptions_storeSemantics, 0, 1, Couchbase\\MutateInOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -417,7 +417,7 @@ PHP_METHOD(Collection, mutateIn)
     int rv;
 
     rv =
-        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "Sh|O", &id, &spec, &options, pcbc_mutate_in_options_ce);
+        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "Sh|O!", &id, &spec, &options, pcbc_mutate_in_options_ce);
     if (rv == FAILURE) {
         return;
     }

@@ -79,7 +79,7 @@ PHP_METHOD(GetAnyReplicaOptions, timeout)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_GetAnyReplicaOptions_timeout, 0, 1, \\Couchbase\\GetAnyReplicaOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_GetAnyReplicaOptions_timeout, 0, 1, Couchbase\\GetAnyReplicaOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -97,7 +97,7 @@ PHP_METHOD(Collection, getAnyReplica)
     lcb_STATUS err;
 
     int rv =
-        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O", &id, &options, pcbc_get_any_replica_options_ce);
+        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O!", &id, &options, pcbc_get_any_replica_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }
@@ -152,7 +152,7 @@ PHP_METHOD(GetAllReplicasOptions, timeout)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_GetAllReplicasOptions_timeout, 0, 1, \\Couchbase\\GetAllReplicasOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_GetAllReplicasOptions_timeout, 0, 1, Couchbase\\GetAllReplicasOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -170,7 +170,7 @@ PHP_METHOD(Collection, getAllReplicas)
     lcb_STATUS err;
 
     int rv =
-        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O", &id, &options, pcbc_get_all_replicas_options_ce);
+        zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O!", &id, &options, pcbc_get_all_replicas_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }

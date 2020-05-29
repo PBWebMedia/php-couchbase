@@ -122,15 +122,15 @@ PHP_METHOD(RemoveOptions, durabilityLevel)
     RETURN_ZVAL(getThis(), 1, 0);
 }
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_RemoveOptions_cas, 0, 1, \\Couchbase\\RemoveOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_RemoveOptions_cas, 0, 1, Couchbase\\RemoveOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_RemoveOptions_timeout, 0, 1, \\Couchbase\\RemoveOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_RemoveOptions_timeout, 0, 1, Couchbase\\RemoveOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_RemoveOptions_durabilityLevel, 0, 1, \\Couchbase\\RemoveOptions, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(ai_RemoveOptions_durabilityLevel, 0, 1, Couchbase\\RemoveOptions, 0)
 ZEND_ARG_TYPE_INFO(0, arg, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -149,7 +149,7 @@ PHP_METHOD(Collection, remove)
     zval *options = NULL;
     lcb_STATUS err;
 
-    int rv = zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O", &id, &options, pcbc_remove_options_ce);
+    int rv = zend_parse_parameters_throw(ZEND_NUM_ARGS() TSRMLS_CC, "S|O!", &id, &options, pcbc_remove_options_ce);
     if (rv == FAILURE) {
         RETURN_NULL();
     }
